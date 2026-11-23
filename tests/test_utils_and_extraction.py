@@ -91,3 +91,14 @@ def test_gstin_ocr_misreads_are_repaired_by_check_digit():
     assert repair_gstin("29AAHCH482IK1ZA") == "29AAHCH4821K1ZA"   # I read for 1 in a digit position
     assert repair_gstin("29AAHCH4821K1ZA") == "29AAHCH4821K1ZA"   # already valid
     assert repair_gstin("29AAHCH4821K1ZB") is None                # wrong check digit stays wrong
+
+
+def test_invoice_number_label_does_not_jump_lines():
+    """A big 'INVOICE' heading above an address like 'No. 88, 2nd Cross' must not be read as invoice number 88."""
+    from app.extraction import _parse
+    rows = [[(0, w) for w in line.split()] for line in [
+        "Apex Office Supplies Pvt Ltd", "INVOICE", "No. 88, 2nd Cross, Jayanagar 4th Block",
+        "GSTIN 29AACCA7315M1ZF Invoice # AOS/2026/1214", "Date 20/11/2026", "Your PO Ref PO-2026-0433",
+    ]]
+    e = _parse(rows, [])
+    assert e.invoice_number == "AOS/2026/1214" and e.po_reference == "PO-2026-0433"

@@ -205,7 +205,7 @@ def _parse(rows: list[Row], spans: list[Span]) -> InvoiceExtraction:
 
     inv_no = None
     for m in re.finditer(
-        r"\b(?:tax\s+invoice|invoice|inv|bill)\.?\s*(?:no|number|num|#)\.?\s*[:#\-]?\s*([A-Z0-9][A-Z0-9/\-_.]*\d[A-Z0-9/\-_]*)",
+        r"\b(?:tax[ \t]+invoice|invoice|inv|bill)\.?[ \t]*(?:no|number|num|#)\.?[ \t]*[:#\-]?[ \t]*([A-Z0-9][A-Z0-9/\-_.]*\d[A-Z0-9/\-_]*)",
         text, re.I,
     ):
         inv_no = m.group(1).rstrip(".")
@@ -223,7 +223,7 @@ def _parse(rows: list[Row], spans: list[Span]) -> InvoiceExtraction:
     due_d = parse_date(due) if due else None
 
     po = _first([
-        r"(?:p\.?\s?o\.?|purchase\s+order|order)\s*(?:no\.?|number|#|ref(?:erence)?\.?)\s*[:#\-]?\s*([A-Z0-9][A-Z0-9/\-]*\d[A-Z0-9/\-]*)",
+        r"(?:p\.?[ \t]?o\.?|purchase[ \t]+order|order)[ \t]*(?:no\.?|number|#|ref(?:erence)?\.?)[ \t]*[:#\-]?[ \t]*([A-Z0-9][A-Z0-9/\-]*\d[A-Z0-9/\-]*)",
         r"\b(PO[-/]\d{4}[-/]\d{3,5})\b",
     ], text)
 
