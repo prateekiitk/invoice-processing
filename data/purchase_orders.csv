@@ -1,0 +1,9 @@
+po_number,vendor_id,po_date,currency,status,department,requester
+PO-2026-0412,V001,2026-10-06,INR,OPEN,Administration,Meera Iyer
+PO-2026-0433,V001,2026-10-21,INR,OPEN,Administration,Meera Iyer
+PO-2026-0398,V002,2026-09-22,INR,OPEN,Retail Operations,Arjun Shetty
+PO-2026-0377,V003,2026-09-15,INR,OPEN,Supply Chain,Kavya Rao
+PO-2026-0420,V004,2026-10-01,INR,OPEN,IT,Rohan Pillai
+PO-2026-0405,V005,2026-10-03,INR,OPEN,Facilities,Divya Menon
+PO-2026-0431,V005,2026-10-18,INR,OPEN,Facilities,Divya Menon
+PO-2026-0389,V006,2026-08-30,INR,OPEN,Facilities,Divya Menon

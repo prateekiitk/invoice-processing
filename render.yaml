@@ -1,0 +1,10 @@
+# One-click deploy on Render (https://render.com) - New > Blueprint > point at this repo.
+services:
+  - type: web
+    name: ap-autopilot
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: STAGE_DELAY_MS
+        value: "350"

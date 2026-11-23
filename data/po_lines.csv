@@ -1,0 +1,17 @@
+po_number,line_no,item_code,description,quantity,uom,unit_price,tax_rate
+PO-2026-0412,1,OFF-PAP-A4,A4 Copier Paper 75 GSM (Box of 5 reams),40,BOX,1150.00,0.18
+PO-2026-0412,2,OFF-PEN-BL50,Ballpoint Pens Blue (Pack of 50),20,PACK,420.00,0.18
+PO-2026-0412,3,OFF-TNR-88A,Toner Cartridge 88A Compatible,6,EA,2850.00,0.18
+PO-2026-0433,1,OFF-WBM-12,Whiteboard Markers Assorted (Set of 12),30,SET,380.00,0.18
+PO-2026-0433,2,OFF-FLD-LV,Lever Arch Files FC Size,100,EA,145.00,0.18
+PO-2026-0398,1,EQP-CHL-400,Glass Door Display Chiller 400L,10,EA,68500.00,0.18
+PO-2026-0398,2,SRV-INST-CHL,Installation and Commissioning per Unit,10,EA,3500.00,0.18
+PO-2026-0377,1,PKG-CRT-3PLY,3-Ply Corrugated Carton 12x10x8 in,5000,EA,18.50,0.18
+PO-2026-0377,2,PKG-TAPE-48,BOPP Packing Tape 48mm x 65m,2000,EA,32.00,0.18
+PO-2026-0420,1,SRV-MITS-NOV,Managed IT Support Services - November 2026,1,MONTH,120000.00,0.18
+PO-2026-0420,2,SRV-LAP-RENT,Laptop Rental Dell Latitude 5440 (per unit-month),25,EA,2400.00,0.18
+PO-2026-0405,1,HYG-FLR-5L,Floor Cleaner Concentrate 5L,60,CAN,640.00,0.18
+PO-2026-0405,2,HYG-HWS-5L,Hand Wash Refill 5L,40,CAN,520.00,0.18
+PO-2026-0431,1,HYG-GBG-XL,Garbage Bags XL (Roll of 30),200,ROLL,95.00,0.18
+PO-2026-0431,2,HYG-MOP-MF,Microfiber Flat Mop with Handle,50,EA,310.00,0.18
+PO-2026-0389,1,ELE-LED-18W,LED Panel Light 18W,120,EA,640.00,0.18

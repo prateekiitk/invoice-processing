@@ -1,0 +1,23 @@
+[
+  {"file": "01_happy_path_apex_office.pdf", "tag": "Happy path", "title": "Clean invoice, full 3-way match",
+   "story": "Apex Office Supplies bills exactly what was ordered and received on PO-2026-0412. Intra-state CGST+SGST.",
+   "expected": "APPROVED"},
+  {"file": "02_split_billing_overrun_coldline.pdf", "tag": "Edge case 1", "title": "Split billing ahead of goods receipt",
+   "story": "Coldline sends the 2nd invoice on a 10-chiller PO. 4 were already billed, only 6 have been received - but this invoice bills 6 more (+6 installations).",
+   "expected": "NEEDS_REVIEW"},
+  {"file": "03_duplicate_resubmission_sterling.pdf", "tag": "Edge case 2", "title": "Duplicate in disguise",
+   "story": "Sterling re-sends an already-approved invoice as a 'payment reminder' - different template, number re-formatted from SPI/26-27/0457 to SPI-26-27-457.",
+   "expected": "REJECTED"},
+  {"file": "04_bank_change_kaveri_it.pdf", "tag": "Edge case 3", "title": "Bank account changed on invoice",
+   "story": "A perfect-looking Kaveri IT invoice - PO, receipt, GST all match - but it asks to pay a new Kotak account. Classic payment-diversion fraud pattern.",
+   "expected": "ON_HOLD"},
+  {"file": "05_scanned_no_po_greenleaf.pdf", "tag": "Edge case 4", "title": "Scanned, no PO, tax-inclusive prices",
+   "story": "A skewed, noisy scan with no text layer. No PO number, GST-inclusive pricing, unit price slightly above PO. Needs OCR, PO inference and GST netting.",
+   "expected": "NEEDS_REVIEW"},
+  {"file": "06_blocked_vendor_orbit.pdf", "tag": "Extra", "title": "Vendor blocked by Procurement",
+   "story": "Orbit Electricals was blocked after a failed compliance audit but still sends an invoice against an old PO.",
+   "expected": "REJECTED"},
+  {"file": "07_missing_fields_apex.pdf", "tag": "Extra", "title": "Incomplete tax invoice",
+   "story": "Apex forgot the invoice number and date - the invoice can't legally support a GST input-credit claim.",
+   "expected": "REJECTED"}
+]

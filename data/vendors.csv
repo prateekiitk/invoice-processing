@@ -1,0 +1,7 @@
+vendor_id,legal_name,aliases,gstin,state_code,status,status_reason,bank_account,bank_ifsc,bank_name,payment_terms_days,contact_email
+V001,Apex Office Supplies Pvt Ltd,Apex Office Supplies|Apex Office,29AACCA7315M1ZF,29,ACTIVE,,50200012345678,HDFC0001234,HDFC Bank,30,billing@apexoffice.example
+V002,Coldline Refrigeration LLP,Coldline Refrigeration|Coldline,27AAKFC2290P1ZX,27,ACTIVE,,912020034567890,UTIB0000456,Axis Bank,45,accounts@coldline.example
+V003,Sterling Packaging Industries Pvt Ltd,Sterling Packaging|SPI,24AAECS5512R1Z0,24,ACTIVE,,001105023456,ICIC0000011,ICICI Bank,30,ar@sterlingpack.example
+V004,Kaveri IT Services Pvt Ltd,Kaveri IT Services|Kaveri IT,29AADCK8834N1ZS,29,ACTIVE,,38912345678,SBIN0004567,State Bank of India,30,finance@kaveriit.example
+V005,Greenleaf Hygiene Solutions,Greenleaf Hygiene|Greenleaf,33AAJFG6619Q1ZU,33,ACTIVE,,6012004500789,CNRB0006012,Canara Bank,15,greenleaf.accounts@example.com
+V006,Orbit Electricals Pvt Ltd,Orbit Electricals|Orbit,29AABCO3307L1ZC,29,BLOCKED,Blocked by Procurement on 2026-09-14 after failed compliance audit,10223344556,ICIC0000777,ICICI Bank,30,orbit.billing@example.com

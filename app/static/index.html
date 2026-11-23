@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AP Autopilot - Invoice to Decision</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231d4ed8'/><path d='M9 17l5 5 9-12' stroke='white' stroke-width='3.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>" />
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#1d4ed8"/><path d="M9 17l5 5 9-12" stroke="white" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <div class="brand-name">AP Autopilot</div>
+        <div class="brand-sub" id="buyerName">Invoice → decision, with every step visible</div>
+      </div>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-view="process">Process invoice</button>
+      <button class="tab" data-view="dashboard">Dashboard <span class="tab-badge" id="openBadge" hidden></span></button>
+      <button class="tab" data-view="reference">Reference data</button>
+    </nav>
+    <div class="top-right">
+      <span class="pill" id="aiPill" title="How invoices are read">…</span>
+      <button class="btn ghost small" id="resetBtn" title="Clear runs and restore the seeded ledger">Reset demo data</button>
+    </div>
+  </header>
+
+  <!-- ============================ PROCESS ============================ -->
+  <main id="view-process" class="view">
+    <aside class="sidebar">
+      <section class="panel">
+        <h3>Submit an invoice</h3>
+        <label class="dropzone" id="dropzone">
+          <input type="file" id="fileInput" accept="application/pdf,.pdf" hidden />
+          <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M12 16V4m0 0l-4 4m4-4l4 4M4 16v3a1 1 0 001 1h14a1 1 0 001-1v-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><strong>Drop a PDF invoice</strong> or click to browse</div>
+          <div class="muted small">Digital or scanned · max 15 MB</div>
+        </label>
+      </section>
+      <section class="panel">
+        <h3>Demo scenarios</h3>
+        <div id="scenarioList" class="scenarios"></div>
+      </section>
+    </aside>
+
+    <section class="workspace" id="workspace">
+      <div class="empty" id="emptyState">
+        <h2>Every invoice, the same ten controls - in seconds</h2>
+        <p class="muted">Pick a scenario or drop a PDF. Each stage below lights up as it runs, shows the evidence it used, and the decision cites the exact checks that drove it.</p>
+        <ol class="flow" id="flowPreview"></ol>
+        <div class="principle">
+          <strong>How it works:</strong> the invoice is read from the PDF's text layer, or with local OCR if it's a scan. Fixed rules then make the decision, so every approve, hold or reject traces back to a named check and a policy threshold. Nothing leaves this machine.
+        </div>
+      </div>
+
+      <div id="runView" hidden>
+        <div class="run-head">
+          <div>
+            <div class="run-title" id="runTitle"></div>
+            <div class="muted small" id="runMeta"></div>
+          </div>
+          <div class="run-head-right">
+            <span class="timer" id="runTimer">0.0s</span>
+            <button class="btn ghost small" id="docBtn">View PDF</button>
+            <a class="btn ghost small" id="exportBtn" href="#" download>Export JSON</a>
+          </div>
+        </div>
+        <div class="stepper" id="stepper"></div>
+        <div class="run-grid">
+          <div class="timeline" id="timeline"></div>
+          <div class="decision-col">
+            <div class="decision-card pending" id="decisionCard">
+              <div class="decision-label">Decision</div>
+              <div class="decision-outcome">Processing…</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================ DASHBOARD ============================ -->
+  <main id="view-dashboard" class="view" hidden>
+    <div class="dash">
+      <div class="kpis" id="kpis"></div>
+      <div class="dash-row">
+        <section class="panel grow">
+          <div class="panel-head">
+            <h3>Decision mix</h3>
+          </div>
+          <div id="mixBar" class="mixbar"></div>
+          <div id="mixLegend" class="legend"></div>
+        </section>
+        <section class="panel grow">
+          <h3>Top exception reasons</h3>
+          <div id="topReasons"></div>
+        </section>
+      </div>
+      <section class="panel">
+        <div class="panel-head">
+          <h3>Run history</h3>
+          <div class="filters" id="filters">
+            <button class="chip active" data-f="ALL">All</button>
+            <button class="chip" data-f="APPROVED">Approved</button>
+            <button class="chip" data-f="NEEDS_REVIEW">Needs review</button>
+            <button class="chip" data-f="ON_HOLD">On hold</button>
+            <button class="chip" data-f="REJECTED">Rejected</button>
+            <button class="chip" data-f="OPEN">Open exceptions</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="tbl" id="runsTable">
+            <thead><tr><th>When</th><th>Document</th><th>Vendor</th><th>Invoice #</th><th class="num">Amount</th><th>Decision</th><th>Reason / headline</th><th>Resolution</th><th class="num">Time</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="muted small empty-row" id="runsEmpty" hidden>No runs yet - process an invoice to see it here.</div>
+      </section>
+    </div>
+  </main>
+
+  <!-- ============================ REFERENCE ============================ -->
+  <main id="view-reference" class="view" hidden>
+    <div class="dash">
+      <section class="panel">
+        <h3>Purchase orders <span class="muted small">· ordered / received (GRN) / billed per line</span></h3>
+        <div id="poList"></div>
+      </section>
+      <section class="panel">
+        <h3>Vendor master</h3>
+        <div class="table-wrap"><table class="tbl" id="vendorTable"></table></div>
+      </section>
+      <section class="panel">
+        <h3>AP ledger <span class="muted small">· seeded history + invoices posted by this process</span></h3>
+        <div class="table-wrap"><table class="tbl" id="ledgerTable"></table></div>
+      </section>
+    </div>
+  </main>
+
+  <div class="modal" id="docModal" hidden>
+    <div class="modal-box">
+      <div class="modal-head"><strong id="docTitle">Document</strong><button class="btn ghost small" id="docClose">Close</button></div>
+      <iframe id="docFrame" title="Invoice PDF"></iframe>
+    </div>
+  </div>
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
